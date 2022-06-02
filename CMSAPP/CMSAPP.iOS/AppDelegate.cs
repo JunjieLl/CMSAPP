@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+
 using Foundation;
 using UIKit;
 
@@ -23,6 +24,8 @@ namespace CMSAPP.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            //CachedImageRenderer.Init();
+            //var ignore = typeof(SvgCachedImage);
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
