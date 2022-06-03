@@ -16,6 +16,7 @@ namespace CMSAPP.Models
         public RoomWithFavorite()
         {
         }
+
     }
 }
 

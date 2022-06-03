@@ -138,6 +138,8 @@
     <BundleResource Include="Resources\Base.lproj\favorite-fill.svg" />
     <BundleResource Include="Resources\Base.lproj\favorite-2.png" />
     <BundleResource Include="Resources\Base.lproj\favorite.png" />
+    <BundleResource Include="Resources\Base.lproj\schedule.png" />
+    <BundleResource Include="Resources\Base.lproj\main.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\CMSAPP\CMSAPP.projitems" Label="Shared" />

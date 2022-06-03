@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CMSAPP.Viwes.RoomDetail">
+    <StackLayout VerticalOptions="Start" x:Name="RoomDetailView" Spacing="15">
+        <Image Source="{Binding image}" HeightRequest="200" WidthRequest="300" Aspect="AspectFill"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="{Binding roomName}" Grid.Column="0" Grid.Row="0" FontSize="23"/>
+            <Label Text="{Binding state}" Grid.Column="1" Grid.Row="0" FontSize="23"/>
+            <Image Source="{Binding favoriteImage}" Grid.Column="2" Grid.Row="0" HeightRequest="25"
+                               WidthRequest="25" HorizontalOptions="End" Margin="0,0,10,0"/>
+
+        </Grid>
+
+        <Label FontSize="27">活动列表</Label>
+        <CollectionView x:Name="RoomActivity">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                               ItemSpacing="15" />
+
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Spacing="10" Orientation="Vertical" BackgroundColor="#E8F2FF">
+                        <Label Text="{Binding title}" FontSize="23"/>
+                        <Label Text="{Binding start}" FontSize="20"/>
+                        <Label Text="{Binding end}" FontSize="20"/>
+                    </StackLayout>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </StackLayout>
+</ContentPage>
+
