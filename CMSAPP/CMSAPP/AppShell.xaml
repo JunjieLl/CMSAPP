@@ -6,7 +6,7 @@
     <TabBar>
         
             <ShellContent Title="主页" Icon="main.png" ContentTemplate="{DataTemplate views:MainPage}"/>
-            <ShellContent Title="会议" Icon="schedule.png" ContentTemplate="{DataTemplate views:MainPage}"/>
+            <ShellContent Title="会议" Icon="schedule.png" ContentTemplate="{DataTemplate views:ReservePage}"/>
     </TabBar>
 </Shell>
 

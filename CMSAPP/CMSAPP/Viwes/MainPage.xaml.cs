@@ -19,6 +19,7 @@ namespace CMSAPP.Viwes
         public MainPage()
         {
             InitializeComponent();
+
         }
 
         protected override async void OnAppearing()

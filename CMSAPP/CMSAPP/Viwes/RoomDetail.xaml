@@ -12,7 +12,7 @@
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
                 <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -25,6 +25,8 @@
                                Clicked="favorite"/>
 
         </Grid>
+
+        <Button Text="预约" FontSize="25" BackgroundColor="#87CEEB"></Button>
 
         <DatePicker x:Name="DatePicker" FontSize="20" Format="yyyy-MM-dd" DateSelected="selectDate">
 

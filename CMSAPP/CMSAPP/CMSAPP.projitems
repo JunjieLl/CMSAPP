@@ -19,6 +19,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Viwes\MainPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Viwes\ReservePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -39,6 +43,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\RoomWithFavoriteForView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Activity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Favorite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Viwes\ReservePage.xaml.cs">
+      <DependentUpon>ReservePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Ground.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PostActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />

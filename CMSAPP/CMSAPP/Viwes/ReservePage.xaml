@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CMSAPP.Viwes.ReservePage"
+    Title="预约">
+
+    <StackLayout Orientation="Vertical" VerticalOptions="Start" Spacing="15">
+        <StackLayout Spacing="5">
+            <Label Text="活动名称" FontSize="15"></Label>
+            <Entry Placeholder="请输入活动名称" MaxLength="20" ClearButtonVisibility="WhileEditing" Completed="nameInput" FontSize="20"></Entry>
+        </StackLayout>
+
+        <StackLayout Spacing="5">
+            <Label Text="场地选择" FontSize="15"></Label>
+            <Picker x:Name="spacePicker" FontSize="20" SelectedIndexChanged="sapcePickerChoose"></Picker>
+        </StackLayout>
+
+        <StackLayout Spacing="5">
+            <Label Text="日期选择" FontSize="15"></Label>
+            <DatePicker x:Name="datePicker" Format="yyyy-MM-dd" FontSize="20" DateSelected="datePickerChoose"></DatePicker>
+        </StackLayout>
+
+        <StackLayout Spacing="5">
+            <Label Text="开始时间" FontSize="15"></Label>
+            <TimePicker FontSize="20"  PropertyChanged="stratTimePickerChoose"></TimePicker>
+        </StackLayout>
+
+        <StackLayout Spacing="5">
+            <Label Text="结束时间" FontSize="15"></Label>
+            <TimePicker FontSize="20"  PropertyChanged="endTimePickerChoose"></TimePicker>
+        </StackLayout>
+
+        <StackLayout Spacing="5">
+            <Label Text="活动描述" FontSize="15"></Label>
+            <Editor FontSize="20" Placeholder="请输入活动描述" MaxLength="200" AutoSize="TextChanges" Completed="descInput"></Editor>
+        </StackLayout>
+
+        <StackLayout Spacing="5">
+            <Label Text="负责人" FontSize="15"></Label>
+            <Entry FontSize="20"  x:Name="chargerEntry" IsReadOnly="True"></Entry>
+        </StackLayout>
+
+        <StackLayout Spacing="5">
+            <Label Text="是否涉及意识形态" FontSize="15"></Label>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="25">
+                <RadioButton Content="是" CheckedChanged="radioCheck"></RadioButton>
+                <RadioButton Content="否" IsChecked="False" CheckedChanged="radioCheck"></RadioButton>
+            </StackLayout>
+        </StackLayout>
+
+        <Button Text="预约" Clicked="submit"
+                BackgroundColor="#87CEEB" FontSize="25"></Button>
+    </StackLayout>
+
+</ContentPage>
+
