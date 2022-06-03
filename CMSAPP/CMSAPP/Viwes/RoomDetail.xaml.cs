@@ -16,6 +16,7 @@ namespace CMSAPP.Viwes
         public RoomDetail()
         {
             InitializeComponent();
+            DatePicker.Date = DateTime.Now;
         }
 
         public string RoomId;
@@ -35,6 +36,8 @@ namespace CMSAPP.Viwes
             }
         }
 
+      
+        //init
         public async void loadRoom()
         {
             //get info of room
@@ -62,8 +65,8 @@ namespace CMSAPP.Viwes
                 if (response2.IsSuccessStatusCode)
                 {
                     var content2 = await response2.Content.ReadAsStringAsync();
-                    List<Activity> activitys = JsonSerializer.Deserialize<List<Activity>>(content2, App.serializerOptions);
-                    activitys.ForEach(activity =>
+                    activities = JsonSerializer.Deserialize<List<Activity>>(content2, App.serializerOptions);
+                    activities.ForEach(activity =>
                     {
                         activity.start = "开始： " + activity.start;
                         activity.start = activity.start.Replace("T", " ");
@@ -72,13 +75,22 @@ namespace CMSAPP.Viwes
                         activity.title = "会议：" + activity.title;
                     });
 
-                    RoomActivity.ItemsSource = activitys;
+                    //RoomActivity.ItemsSource = activities;
+                    selectDate(null, null);
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
+        }
+
+
+        public void selectDate(object sender, EventArgs e)
+        {
+            string chooseDate = DatePicker.Date.ToString("yyyy-MM-dd");
+            var showActivities = activities.FindAll(activity => activity.start.Contains(chooseDate));
+            RoomActivity.ItemsSource = showActivities;
         }
 
         public async void favorite(object sender, EventArgs e)
@@ -113,6 +125,12 @@ namespace CMSAPP.Viwes
                 Debug.WriteLine(ex);
             }
         }
+
+        //store activities
+        public List<Activity> activities { get; set; }
+
+        
+
     }
 }
 

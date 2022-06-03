@@ -26,6 +26,11 @@
 
         </Grid>
 
+        <DatePicker x:Name="DatePicker" FontSize="20" Format="yyyy-MM-dd" DateSelected="selectDate">
+
+
+        </DatePicker>
+
         <Label FontSize="27">活动列表</Label>
         <CollectionView x:Name="RoomActivity">
             <CollectionView.ItemsLayout>
