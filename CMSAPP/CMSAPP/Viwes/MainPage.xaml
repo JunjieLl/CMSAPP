@@ -29,9 +29,9 @@
 
                         <Label Text="{Binding roomName}" Grid.Column="0" FontSize="23"/>
                         <Label Text="{Binding state}" Grid.Column="1" FontSize="23"/>
-                        <Image  Source="{Binding favoriteImage}" Grid.Column="2" HeightRequest="25"
+                        <local:MyImageButton  RoomId="{Binding roomId}" IsFavo="{Binding favorite}" Source="{Binding favoriteImage}" Grid.Column="2" HeightRequest="25"
                                WidthRequest="25" HorizontalOptions="End" Margin="0,0,10,0"
-                               />
+                               Clicked="favorite"/>
 
                     </Grid>
                 </StackLayout>

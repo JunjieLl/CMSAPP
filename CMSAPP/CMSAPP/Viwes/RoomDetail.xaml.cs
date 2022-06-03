@@ -4,6 +4,9 @@ using CMSAPP.Models;
 using Xamarin.Forms;
 using System.Text.Json;
 using System.Diagnostics;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace CMSAPP.Viwes
 {
@@ -32,8 +35,6 @@ namespace CMSAPP.Viwes
             }
         }
 
-        public RoomWithFavorite roomWithFavorite { get; set; }
-
         public async void loadRoom()
         {
             //get info of room
@@ -44,7 +45,7 @@ namespace CMSAPP.Viwes
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    roomWithFavorite = JsonSerializer.Deserialize<RoomWithFavorite>(content, App.serializerOptions);
+                    var roomWithFavorite = JsonSerializer.Deserialize<RoomWithFavorite>(content, App.serializerOptions);
                     RoomWithFavoriteForView roomWithFavoriteForView = new RoomWithFavoriteForView(roomWithFavorite);
                     RoomDetailView.BindingContext = roomWithFavoriteForView;
                 }
@@ -65,7 +66,9 @@ namespace CMSAPP.Viwes
                     activitys.ForEach(activity =>
                     {
                         activity.start = "开始： " + activity.start;
+                        activity.start = activity.start.Replace("T", " ");
                         activity.end = "结束： " + activity.end;
+                        activity.end = activity.end.Replace("T", " ");
                         activity.title = "会议：" + activity.title;
                     });
 
@@ -78,12 +81,38 @@ namespace CMSAPP.Viwes
             }
         }
 
-        //protected override async void OnAppearing()
-        //      {
-        //	base.OnAppearing();
-        //	Uri uri = new Uri(App.baseUrl + $"Room/favorite/{App.userId}/{roomId}");
-        //	var response = App.httpClient.GetAsync
-        //      }
+        public async void favorite(object sender, EventArgs e)
+        {
+            MyImageButton myImageButton = (MyImageButton)sender;
+            string roomId = myImageButton.RoomId;
+            bool isFavo = myImageButton.IsFavo;
+            Uri uri;
+            if (isFavo)
+            {
+                uri = new Uri($"{App.baseUrl}Favorite/delete");
+            }
+            else
+            {
+                uri = new Uri($"{App.baseUrl}Favorite");
+            }
+
+            Favorite favorite = new Favorite(roomId, App.userId);
+            string json = JsonSerializer.Serialize<Favorite>(favorite, App.serializerOptions);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            try
+            {
+                var response = await App.httpClient.PostAsync(uri, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    //refresh
+                    loadRoom();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
     }
 }
 

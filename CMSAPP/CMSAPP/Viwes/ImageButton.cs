@@ -24,23 +24,23 @@ namespace CMSAPP.Viwes
             }
         }
 
-        //public bool IsFavo
-        //{
-        //    get
-        //    {
-        //        return (bool)GetValue(IsFavoProperty);
-        //    }
-        //    set
-        //    {
-        //        SetValue(IsFavoProperty, value);
-        //    }
-        //}
+        public bool IsFavo
+        {
+            get
+            {
+                return (bool)GetValue(IsFavoProperty);
+            }
+            set
+            {
+                SetValue(IsFavoProperty, value);
+            }
+        }
 
-        //public static readonly BindableProperty IsFavoProperty = BindableProperty.Create(
-        //    propertyName: "IsFavo",
-        //    returnType: typeof(bool),
-        //    declaringType: typeof(MyImageButton),
-        //    defaultValue: true);
+        public static readonly BindableProperty IsFavoProperty = BindableProperty.Create(
+            propertyName: "IsFavo",
+            returnType: typeof(bool),
+            declaringType: typeof(MyImageButton),
+            defaultValue: true);
 
 
         public MyImageButton()
