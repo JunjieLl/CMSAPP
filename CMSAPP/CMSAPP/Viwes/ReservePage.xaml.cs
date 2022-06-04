@@ -115,6 +115,8 @@ namespace CMSAPP.Viwes
                         }
                     }
 
+                    startToEnds.Sort((s1, s2) => s1.startToEnd.CompareTo(s2.startToEnd));
+
                     RoomActivity.ItemsSource = startToEnds;
                 }
             }
@@ -255,6 +257,8 @@ namespace CMSAPP.Viwes
                 string json = JsonSerializer.Serialize<PostActivity>(postActivity, App.serializerOptions);
                 StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await App.httpClient.PostAsync(uri, stringContent);
+
+                getActivities();
 
                 if (response.IsSuccessStatusCode)
                 {
