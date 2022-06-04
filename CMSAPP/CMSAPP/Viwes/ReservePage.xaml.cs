@@ -14,7 +14,6 @@ namespace CMSAPP.Viwes
     {
 
 
-
         public ReservePage()
         {
             InitializeComponent();
@@ -37,7 +36,8 @@ namespace CMSAPP.Viwes
 
             chargerEntry.Text = App.userName;
 
-            datePicker.Date = DateTime.Now;
+            dateChoose = DateTime.Now;
+            datePicker.Date = dateChoose;
 
             Uri uri = new Uri($"{App.baseUrl}Room/AllGround");
             try
@@ -68,17 +68,62 @@ namespace CMSAPP.Viwes
             {
                 chooseRoomId = picker.Items[picker.SelectedIndex];
                 chooseRoomId = roomNameId[chooseRoomId];
+                getActivities();
             }
         }
 
         //form
         public DateTime dateChoose { get; set; }
+        //for form check
+        public List<Activity> activities { get; set; }
 
         public void datePickerChoose(object sender, EventArgs args)
         {
             DatePicker datePicker = sender as DatePicker;
             dateChoose = datePicker.Date;//.ToString("yyyy-MM-dd");
+
+            getActivities();
         }
+
+        public async void getActivities()
+        {
+            if (chooseRoomId == null || dateChoose == null)
+            {
+                return;
+            }
+
+            //show occupyTime
+            Uri uri2 = new Uri($"{App.baseUrl}Activity/room/{chooseRoomId}");
+            try
+            {
+                var response2 = await App.httpClient.GetAsync(uri2);
+                if (response2.IsSuccessStatusCode)
+                {
+                    var content2 = await response2.Content.ReadAsStringAsync();
+                    activities = JsonSerializer.Deserialize<List<Activity>>(content2, App.serializerOptions);
+
+                    List<StartToEnd> startToEnds = new List<StartToEnd>();
+
+                    foreach (var activity in activities)
+                    {
+                        DateTime tempStart = DateTime.ParseExact(activity.start, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.CurrentCulture);
+                        DateTime tempEnd = DateTime.ParseExact(activity.end, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.CurrentCulture);
+
+                        if (tempStart.ToString("yyyy-MM-dd").Equals(dateChoose.ToString("yyyy-MM-dd")))
+                        {
+                            startToEnds.Add(new StartToEnd(tempStart.ToString("HH:mm") + "-" + tempEnd.ToString("HH:mm")));
+                        }
+                    }
+
+                    RoomActivity.ItemsSource = startToEnds;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
         //form
         public TimeSpan startTimeSpan { get; set; }
         public void stratTimePickerChoose(object sender, PropertyChangedEventArgs args)
@@ -173,6 +218,27 @@ namespace CMSAPP.Viwes
                 return;
             }
 
+            //check conflict between reserve time
+            foreach (var activity in activities)
+            {
+                DateTime startTime = DateTime.ParseExact(dateChoose.ToString("yyyy-MM-dd"), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture) + startTimeSpan;
+                DateTime endTime = DateTime.ParseExact(dateChoose.ToString("yyyy-MM-dd"), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture) + endTimeSpan;
+
+                DateTime activityStartTime = DateTime.ParseExact(activity.start, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.CurrentCulture);
+                DateTime activityEndTime = DateTime.ParseExact(activity.end, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.CurrentCulture);
+
+                if (startTime > activityEndTime || activityStartTime > endTime)
+                {
+                    //ok
+                }
+                else
+                {
+                    await DisplayAlert("警告", "预约时间段与已有时间段冲突", "确认");
+                    return;
+                }
+            }
+
+
             PostActivity postActivity = new PostActivity();
             postActivity.activityName = activityName;
             postActivity.activityDescription = desc;
@@ -181,14 +247,14 @@ namespace CMSAPP.Viwes
             postActivity.commonUserId = App.userId;
             postActivity.duration = (int)((endTimeSpan - startTimeSpan).TotalMinutes);
             postActivity.politicallyRelevant = politicalRelevannt;
-            postActivity.startTime = (dateChoose + startTimeSpan).ToString("yyyy-MM-dd HH:mm:ss");
+            postActivity.startTime = (DateTime.ParseExact(dateChoose.ToString("yyyy-MM-dd"), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture) + +startTimeSpan).ToString("yyyy-MM-dd HH:mm:ss");
 
             Uri uri = new Uri($"{App.baseUrl}Activity");
             try
             {
                 string json = JsonSerializer.Serialize<PostActivity>(postActivity, App.serializerOptions);
                 StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-                var response =await App.httpClient.PostAsync(uri, stringContent);
+                var response = await App.httpClient.PostAsync(uri, stringContent);
 
                 if (response.IsSuccessStatusCode)
                 {

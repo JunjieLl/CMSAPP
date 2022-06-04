@@ -48,6 +48,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Ground.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PostActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StartToEnd.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
