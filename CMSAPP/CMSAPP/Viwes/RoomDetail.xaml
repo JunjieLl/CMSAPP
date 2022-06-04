@@ -26,7 +26,7 @@
 
         </Grid>
 
-        <Button Text="预约" FontSize="25" BackgroundColor="#87CEEB"></Button>
+        <Button Text="预约" FontSize="25" BackgroundColor="#87CEEB" Clicked="reserve"></Button>
 
         <DatePicker x:Name="DatePicker" FontSize="20" Format="yyyy-MM-dd" DateSelected="selectDate">
 

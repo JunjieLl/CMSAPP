@@ -10,9 +10,64 @@ using System.Net.Http;
 
 namespace CMSAPP.Viwes
 {
+    [QueryProperty(nameof(roomId), "roomId")]
     public partial class ReservePage : ContentPage
     {
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+        }
+
+        public string RoomId;
+        public string roomId
+        {
+            get
+            {
+                return RoomId;
+            }
+            set
+            {
+                RoomId = value;
+                load();
+            }
+        }
+
+        public async void load()
+        {
+            chargerEntry.Text = App.userName;
+
+            dateChoose = DateTime.Now;
+            datePicker.Date = dateChoose;
+
+            Uri uri = new Uri($"{App.baseUrl}Room/AllGround");
+            try
+            {
+                var response = await App.httpClient.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    var grounds = JsonSerializer.Deserialize<List<Ground>>(content, App.serializerOptions);
+                    grounds.Sort((ground1, ground2) => ground1.roomName.CompareTo(ground2.roomName));
+                    int selectedIndex = -1,i=0;
+                    grounds.ForEach(ground =>
+                    {
+                        roomNameId.Add(ground.roomName, ground.roomId);
+                        spacePicker.Items.Add(ground.roomName);
+                        if (ground.roomId.Equals(roomId))
+                        {
+                            selectedIndex = i;
+                        }
+                        ++i;
+                    });
+                    spacePicker.SelectedIndex = selectedIndex;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
 
         public ReservePage()
         {
@@ -30,36 +85,7 @@ namespace CMSAPP.Viwes
         //form 
         public string chooseRoomId { get; set; }
 
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-
-            chargerEntry.Text = App.userName;
-
-            dateChoose = DateTime.Now;
-            datePicker.Date = dateChoose;
-
-            Uri uri = new Uri($"{App.baseUrl}Room/AllGround");
-            try
-            {
-                var response = await App.httpClient.GetAsync(uri);
-                if (response.IsSuccessStatusCode)
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    var grounds = JsonSerializer.Deserialize<List<Ground>>(content, App.serializerOptions);
-                    grounds.Sort((ground1, ground2) => ground1.roomName.CompareTo(ground2.roomName));
-                    grounds.ForEach(ground =>
-                    {
-                        roomNameId.Add(ground.roomName, ground.roomId);
-                        spacePicker.Items.Add(ground.roomName);
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-        }
+        
 
         public void sapcePickerChoose(object sender, EventArgs args)
         {
@@ -271,6 +297,7 @@ namespace CMSAPP.Viwes
             }
 
         }
+
     }
 }
 

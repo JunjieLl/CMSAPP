@@ -129,8 +129,13 @@ namespace CMSAPP.Viwes
         //store activities
         public List<Activity> activities { get; set; }
 
-        
 
+        public async void reserve(object sender, EventArgs args)
+        {
+            Button button = sender as Button;
+
+            await Shell.Current.GoToAsync($"Reserve?roomId={RoomId}");
+        }
     }
 }
 

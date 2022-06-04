@@ -12,7 +12,6 @@ namespace CMSAPP.Models
 
         public StartToEnd()
         {
-
         }
     }
 }
