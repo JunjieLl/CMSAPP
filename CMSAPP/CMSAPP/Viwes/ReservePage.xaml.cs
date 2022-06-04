@@ -17,6 +17,8 @@ namespace CMSAPP.Viwes
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            getActivities();
         }
 
         public string RoomId;

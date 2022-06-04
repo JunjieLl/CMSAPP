@@ -16,7 +16,6 @@ namespace CMSAPP.Viwes
         public RoomDetail()
         {
             InitializeComponent();
-            DatePicker.Date = DateTime.Now;
         }
 
         public string RoomId;
@@ -25,7 +24,7 @@ namespace CMSAPP.Viwes
         {
             set
             {
-
+                DatePicker.Date = DateTime.Now;
                 RoomId = value;
                 loadRoom();
 
@@ -36,7 +35,11 @@ namespace CMSAPP.Viwes
             }
         }
 
-      
+        protected override async void OnAppearing()
+        {
+            selectDate(null, null);
+        }
+
         //init
         public async void loadRoom()
         {
@@ -57,6 +60,12 @@ namespace CMSAPP.Viwes
             {
                 Debug.WriteLine(ex);
             }
+
+            selectDate(null, null);
+        }
+
+        public async void selectDate(object sender, EventArgs e)
+        {
             //get activity of corresponding room
             Uri uri2 = new Uri($"{App.baseUrl}Activity/room/{RoomId}");
             try
@@ -65,7 +74,7 @@ namespace CMSAPP.Viwes
                 if (response2.IsSuccessStatusCode)
                 {
                     var content2 = await response2.Content.ReadAsStringAsync();
-                    activities = JsonSerializer.Deserialize<List<Activity>>(content2, App.serializerOptions);
+                    var activities = JsonSerializer.Deserialize<List<Activity>>(content2, App.serializerOptions);
                     activities.ForEach(activity =>
                     {
                         activity.start = "开始： " + activity.start;
@@ -75,22 +84,16 @@ namespace CMSAPP.Viwes
                         activity.title = "会议：" + activity.title;
                     });
 
-                    //RoomActivity.ItemsSource = activities;
-                    selectDate(null, null);
+                    string chooseDate = DatePicker.Date.ToString("yyyy-MM-dd");
+                    var showActivities = activities.FindAll(activity => activity.start.Contains(chooseDate));
+                    RoomActivity.ItemsSource = showActivities;
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
-        }
 
-
-        public void selectDate(object sender, EventArgs e)
-        {
-            string chooseDate = DatePicker.Date.ToString("yyyy-MM-dd");
-            var showActivities = activities.FindAll(activity => activity.start.Contains(chooseDate));
-            RoomActivity.ItemsSource = showActivities;
         }
 
         public async void favorite(object sender, EventArgs e)
@@ -125,9 +128,6 @@ namespace CMSAPP.Viwes
                 Debug.WriteLine(ex);
             }
         }
-
-        //store activities
-        public List<Activity> activities { get; set; }
 
 
         public async void reserve(object sender, EventArgs args)
