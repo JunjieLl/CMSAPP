@@ -277,7 +277,7 @@ namespace CMSAPP.Viwes
             postActivity.commonUserId = App.userId;
             postActivity.duration = (int)((endTimeSpan - startTimeSpan).TotalMinutes);
             postActivity.politicallyRelevant = politicalRelevannt;
-            postActivity.startTime = (DateTime.ParseExact(dateChoose.ToString("yyyy-MM-dd"), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture) + +startTimeSpan).ToString("yyyy-MM-dd HH:mm:ss");
+            postActivity.startTime = (DateTime.ParseExact(dateChoose.ToString("yyyy-MM-dd"), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture) + startTimeSpan).ToString("yyyy-MM-dd HH:mm:ss");
 
             Uri uri = new Uri($"{App.baseUrl}Activity");
             try
