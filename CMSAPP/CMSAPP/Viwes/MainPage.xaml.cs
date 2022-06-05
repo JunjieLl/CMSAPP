@@ -22,6 +22,24 @@ namespace CMSAPP.Viwes
 
         }
 
+        public void SearchBar_TextChanged(object sender,EventArgs args)
+        {
+            SearchBar searchBar = sender as SearchBar;
+            string text = searchBar.Text;
+
+            List<RoomWithFavoriteForView> roomWithFavoriteForViews = new List<RoomWithFavoriteForView>();
+
+            foreach(var room in roomWithFavorites)
+            {
+                if (room.roomName.Contains(text) || room.state.Contains(text))
+                {
+                    roomWithFavoriteForViews.Add(new RoomWithFavoriteForView(room));
+                }
+            }
+
+            collectionView.ItemsSource = roomWithFavoriteForViews;
+        }
+
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -29,9 +47,11 @@ namespace CMSAPP.Viwes
             await refresh();
         }
 
+        //for search
+        List<RoomWithFavorite> roomWithFavorites;
+
         public async Task refresh()
         {
-            List<RoomWithFavorite> roomWithFavorites = new List<RoomWithFavorite>();
             roomWithFavorites = await getRooms();
             List<RoomWithFavoriteForView> roomWithFavoriteForViews = new List<RoomWithFavoriteForView>();
             foreach (var room in roomWithFavorites)
@@ -106,5 +126,8 @@ namespace CMSAPP.Viwes
             }
         }
 
+        void SearchBar_TextChanged(System.Object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+        }
     }
 }
