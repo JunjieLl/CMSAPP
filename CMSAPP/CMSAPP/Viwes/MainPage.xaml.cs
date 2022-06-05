@@ -60,6 +60,7 @@ namespace CMSAPP.Viwes
                 }
                 isPushLogin = true;
                 await Navigation.PushModalAsync(new LoginPage());
+                return;
             }
 
             base.OnAppearing();
