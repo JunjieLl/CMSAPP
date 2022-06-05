@@ -465,6 +465,37 @@ namespace CMSAPP.Viwes
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+            }   
+        }
+
+        public async void cancel(object sender, EventArgs args)
+        {
+            Button button = sender as Button;
+            DeleteActivity deleteActivity = new DeleteActivity();
+
+            deleteActivity.recordId = "1";//I do not see changes
+            deleteActivity.activityId= PassactivityId;
+            deleteActivity.userId = App.userId;
+            deleteActivity.modifyTime = originStartTime.ToString("yyyy-MM-dd HH:mm:ss");
+
+            deleteActivity.reason= Passreason;
+
+            Uri uri = new Uri($"{App.baseUrl}ModifyRecord");
+            try
+            {
+                string json = JsonSerializer.Serialize<DeleteActivity>(deleteActivity, App.serializerOptions);
+                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await App.httpClient.PostAsync(uri, stringContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await DisplayAlert("提示", "取消成功", "确认");
+                    await Shell.Current.GoToAsync("..");
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
             }
         }
     }

@@ -71,11 +71,21 @@
 
             <StackLayout Spacing="5">
                 <Label Text="修改原因或取消原因" FontSize="15"></Label>
-                <Editor FontSize="20" x:Name="VReason" Placeholder="请输入活动描述" MaxLength="200" AutoSize="TextChanges" Completed="reasonInput"></Editor>
+                <Editor FontSize="20" x:Name="VReason" Placeholder="请输入理由" MaxLength="200" AutoSize="TextChanges" Completed="reasonInput"></Editor>
             </StackLayout>
-
-            <Button Text="预约" Clicked="submit"
+            
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Text="修改" Clicked="submit" Grid.Column="0"
                 BackgroundColor="#87CEEB" FontSize="25"></Button>
+                    <Button Text="取消" Clicked="cancel" Grid.Column="1"
+                BackgroundColor="#B22222" FontSize="25"></Button>
+                </Grid>
+
+           
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Viwes\MyButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PutActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DeleteActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
