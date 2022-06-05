@@ -35,6 +35,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Viwes\ActivityViewWithFeedbackPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -74,6 +78,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\DeleteActivity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Viwes\ActivityViewPage.xaml.cs">
       <DependentUpon>ActivityViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Viwes\ActivityViewWithFeedbackPage.xaml.cs">
+      <DependentUpon>ActivityViewWithFeedbackPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

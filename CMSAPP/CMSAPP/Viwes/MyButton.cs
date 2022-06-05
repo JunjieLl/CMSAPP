@@ -11,6 +11,28 @@ namespace CMSAPP.Viwes
 
         }
 
+
+        public string Feedback
+        {
+
+            get
+            {
+                return (string)GetValue(FeedbackProperty);
+            }
+            set
+            {
+                SetValue(FeedbackProperty, value);
+            }
+        }
+
+        public static readonly BindableProperty FeedbackProperty = BindableProperty.Create(
+            propertyName: "Feedback",
+            returnType: typeof(string),
+            declaringType: typeof(MyButton),
+            defaultValue: "default"
+            );
+
+
         public string ActivityStatus
         {
 

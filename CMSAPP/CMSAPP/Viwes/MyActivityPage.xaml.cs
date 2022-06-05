@@ -67,17 +67,17 @@ namespace CMSAPP.Viwes
         public async void modifyRecord(System.Object sender, System.EventArgs e)
         {
             MyButton myButton = sender as MyButton;
-            if (myButton.ActivityStatus.Equals("待反馈"))
+            if (myButton.ActivityStatus.Equals("待反馈")|| myButton.ActivityStatus.Equals("已取消"))
             {
                 string url = $"ViewActivityInfo?PassactivityId={myButton.PassactivityId}&PassactivityName={myButton.PassactivityName}&" +
                    $"PassstartTime={myButton.PassstartTime}&Passduration={myButton.Passduration}&" +
                    $"PassactivityDescription={myButton.PassactivityDescription}&PassuserName={myButton.PassuserName}&" +
                    $"&PasspoliticallyRelevant={myButton.PasspoliticallyRelevant}&" +
                    $"Passreason={myButton.Passreason}&PassroomId={myButton.PassroomId}&" +
-                   $"PasspoliticalReview={myButton.PasspoliticalReview}&PassroomName={myButton.RoomName}";
+                   $"PasspoliticalReview={myButton.PasspoliticalReview}&PassroomName={myButton.RoomName}&PassactivityStatus={myButton.ActivityStatus}";
                 await Shell.Current.GoToAsync(url);
             }
-            else
+            else if(myButton.ActivityStatus.Equals("待举办"))
             {
                 string url = $"Modify?PassactivityId={myButton.PassactivityId}&PassactivityName={myButton.PassactivityName}&" +
                    $"PassstartTime={myButton.PassstartTime}&Passduration={myButton.Passduration}&" +
@@ -89,9 +89,18 @@ namespace CMSAPP.Viwes
                 await Shell.Current.GoToAsync(url);
 
             }
-
+            else//已反馈、被驳回
+            {
+                string url = $"ViewActivityInfoWithFeedback?PassactivityId={myButton.PassactivityId}&PassactivityName={myButton.PassactivityName}&" +
+                      $"PassstartTime={myButton.PassstartTime}&Passduration={myButton.Passduration}&" +
+                      $"PassactivityDescription={myButton.PassactivityDescription}&PassuserName={myButton.PassuserName}&" +
+                      $"&PasspoliticallyRelevant={myButton.PasspoliticallyRelevant}&" +
+                      $"Passreason={myButton.Passreason}&PassroomId={myButton.PassroomId}&" +
+                      $"PasspoliticalReview={myButton.PasspoliticalReview}&PassroomName={myButton.RoomName}&PassactivityStatus={myButton.ActivityStatus}&" +
+                      $"Passfeedback={myButton.Feedback}";
+                await Shell.Current.GoToAsync(url);
+            }
         }
-
     }
 }
 

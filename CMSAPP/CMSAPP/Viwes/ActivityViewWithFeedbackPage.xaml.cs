@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+
 using Xamarin.Forms;
-using System.Text.Json;
-using CMSAPP.Models;
-using System.ComponentModel;
-using System.Text;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace CMSAPP.Viwes
 {
@@ -23,14 +17,17 @@ namespace CMSAPP.Viwes
     [QueryProperty(nameof(PassRoomId), "PassroomId")]//不需要
     [QueryProperty(nameof(PassRoomName), "PassroomName")]
     [QueryProperty(nameof(PassActivityStatus), "PassactivityStatus")]
-    public partial class ActivityViewPage : ContentPage
-	{	
-		public ActivityViewPage ()
-		{
-			InitializeComponent ();
-		}
+    [QueryProperty(nameof(PassFeeedBack), "Passfeedback")]
+    public partial class ActivityViewWithFeedbackPage : ContentPage
+    {
+        
+        public ActivityViewWithFeedbackPage()
+        {
+            InitializeComponent();
+        }
 
         //pass data begin
+        public string Passfeedback = "default";
         public string PassactivityStatus = "default";
         public string PassroomName = "default";
         public string PassactivityId = "1000000008";
@@ -44,6 +41,25 @@ namespace CMSAPP.Viwes
         public string Passreason = "冲突";
         public string PassroomId = "0000000001";
 
+        public string PassFeeedBack
+        {
+            get
+            {
+                return Passfeedback;
+            }
+            set
+            {
+                Passfeedback = value;
+                VFeedback.Text = value;
+                if (PassactivityStatus.Equals("已反馈")) {
+                    feedBackLabel.Text = "驳回原因";
+                }
+                else if (PassactivityStatus.Equals("被驳回")){
+                    feedBackLabel.Text = "反馈";
+                }
+            }
+        }
+
         public string PassActivityStatus
         {
             get
@@ -53,10 +69,11 @@ namespace CMSAPP.Viwes
             set
             {
                 PassactivityStatus = value;
-                if (value.Equals("待反馈")){
+                if (value.Equals("待反馈"))
+                {
                     reasonOrcancelLabel.Text = "修改原因";
                 }
-                else if(value.Equals("已取消"))
+                else if (value.Equals("已取消"))
                 {
                     reasonOrcancelLabel.Text = "取消原因";
                 }
@@ -141,7 +158,7 @@ namespace CMSAPP.Viwes
                 DateTime t0 = DateTime.ParseExact(t.ToString("yyyy-MM-dd"), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture);
                 VStTime.Time = t - t0;
                 VEndTime.Time = (t - t0) + TimeSpan.FromMinutes(Passduration);
-                
+
             }
         }
         public string PassActivityDescription
@@ -154,7 +171,7 @@ namespace CMSAPP.Viwes
             {
                 PassactivityDescription = value;
                 VDesc.Text = value;
-  
+
             }
         }
         public string PassUserName
@@ -214,11 +231,12 @@ namespace CMSAPP.Viwes
             }
         }
         //pass end
-       
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
         }
+
     }
 }
 

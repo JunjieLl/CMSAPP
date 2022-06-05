@@ -2,8 +2,8 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="CMSAPP.Viwes.ActivityViewPage">
-     <ScrollView>
+    x:Class="CMSAPP.Viwes.ActivityViewWithFeedbackPage">
+    <ScrollView>
 
         <StackLayout Orientation="Vertical" VerticalOptions="Start" Spacing="15">
             <StackLayout Spacing="5">
@@ -52,6 +52,11 @@
             <StackLayout Spacing="5">
                 <Label Text="修改原因或取消原因" x:Name="reasonOrcancelLabel" FontSize="15"></Label>
                 <Editor IsEnabled="False" FontSize="20" x:Name="VReason" Placeholder="无" MaxLength="200" AutoSize="TextChanges"></Editor>
+            </StackLayout>
+
+            <StackLayout Spacing="5">
+                <Label Text="驳回原因或反馈" x:Name="feedBackLabel" FontSize="15"></Label>
+                <Editor IsEnabled="False" FontSize="20" x:Name="VFeedback" Placeholder="无" MaxLength="200" AutoSize="TextChanges"></Editor>
             </StackLayout>
         </StackLayout>
     </ScrollView>

@@ -15,6 +15,7 @@ namespace CMSAPP
 			Routing.RegisterRoute("Reserve", typeof(ReservePage));
 			Routing.RegisterRoute("Modify", typeof(ActivityModifyPage));
 			Routing.RegisterRoute("ViewActivityInfo", typeof(ActivityViewPage));
+			Routing.RegisterRoute("ViewActivityInfoWithFeedback", typeof(ActivityViewWithFeedbackPage));
 		}
 	}
 }
