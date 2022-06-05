@@ -18,13 +18,20 @@ namespace CMSAPP.Viwes
 
         public MainPage()
         {
+
             InitializeComponent();
 
         }
 
-        public void SearchBar_TextChanged(object sender,EventArgs args)
+        public async void SearchBar_TextChanged(object sender,EventArgs args)
         {
             SearchBar searchBar = sender as SearchBar;
+            if (string.IsNullOrEmpty(searchBar.Text))
+            {
+                await refresh();
+                return;
+            }
+
             string text = searchBar.Text;
 
             List<RoomWithFavoriteForView> roomWithFavoriteForViews = new List<RoomWithFavoriteForView>();
@@ -40,17 +47,25 @@ namespace CMSAPP.Viwes
             collectionView.ItemsSource = roomWithFavoriteForViews;
         }
 
+        private bool isPushLogin = false;
+
         protected override async void OnAppearing()
         {
-            if(App.userId == null)
+            if (App.userId == null)
             {
-                await Shell.Current.GoToAsync("login");
-                return;
+                //await Shell.Current.GoToAsync("//login");
+                if (isPushLogin)
+                {
+                    return;
+                }
+                isPushLogin = true;
+                await Navigation.PushModalAsync(new LoginPage());
             }
 
             base.OnAppearing();
 
             await refresh();
+
         }
 
         //for search

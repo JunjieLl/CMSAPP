@@ -59,11 +59,19 @@ namespace CMSAPP.Viwes
 
         }
 
+        private bool isPushLogin = false;
+
         protected async override void OnAppearing()
         {
             if (App.userId == null)
             {
-                await Shell.Current.GoToAsync("login");
+                //await Shell.Current.GoToAsync("//login");
+                if (isPushLogin)
+                {
+                    return;
+                }
+                isPushLogin = true;
+                await Navigation.PushModalAsync(new LoginPage());
                 return;
             }
 

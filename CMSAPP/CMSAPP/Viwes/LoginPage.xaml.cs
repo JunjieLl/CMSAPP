@@ -45,7 +45,8 @@ namespace CMSAPP.Viwes
 					App.userId = user.userId;
 					App.userName = user.userName;
 					await DisplayAlert("提示", "登录成功", "确认");
-					await Shell.Current.GoToAsync("../..");
+					//await Shell.Current.GoToAsync("../..");
+					await Navigation.PopModalAsync();
 				}
                 else
                 {
