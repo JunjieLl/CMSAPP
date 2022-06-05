@@ -44,6 +44,11 @@ namespace CMSAPP.Viwes
 
 
                     }
+                    myActivityPageModelForViews.Sort((s1, s2) =>
+                    {
+                        return DateTime.ParseExact(s1.startTime, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture).CompareTo(
+                         DateTime.ParseExact(s2.startTime, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture));
+                    });
                     collectionView.ItemsSource = myActivityPageModelForViews;
                 }
             }

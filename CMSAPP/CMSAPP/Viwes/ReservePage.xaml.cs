@@ -286,11 +286,12 @@ namespace CMSAPP.Viwes
                 StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await App.httpClient.PostAsync(uri, stringContent);
 
-                getActivities();
+                //getActivities();
 
                 if (response.IsSuccessStatusCode)
                 {
                     await DisplayAlert("提示", "预约成功", "确认");
+                    await Shell.Current.GoToAsync("..");
                 }
             }
             catch (Exception ex)

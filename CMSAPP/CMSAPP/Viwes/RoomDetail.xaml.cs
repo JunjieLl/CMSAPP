@@ -75,6 +75,12 @@ namespace CMSAPP.Viwes
                 {
                     var content2 = await response2.Content.ReadAsStringAsync();
                     var activities = JsonSerializer.Deserialize<List<Activity>>(content2, App.serializerOptions);
+                    activities.Sort((s1, s2) =>
+                    {
+                        return DateTime.ParseExact(s1.start, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.CurrentCulture).CompareTo(
+                         DateTime.ParseExact(s2.start, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.CurrentCulture));
+                    });
+
                     activities.ForEach(activity =>
                     {
                         activity.start = "开始： " + activity.start;
@@ -86,6 +92,7 @@ namespace CMSAPP.Viwes
 
                     string chooseDate = DatePicker.Date.ToString("yyyy-MM-dd");
                     var showActivities = activities.FindAll(activity => activity.start.Contains(chooseDate));
+                    
                     RoomActivity.ItemsSource = showActivities;
                 }
             }
