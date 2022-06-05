@@ -42,6 +42,12 @@ namespace CMSAPP.Viwes
 
         protected override async void OnAppearing()
         {
+            if(App.userId == null)
+            {
+                await Shell.Current.GoToAsync("login");
+                return;
+            }
+
             base.OnAppearing();
 
             await refresh();

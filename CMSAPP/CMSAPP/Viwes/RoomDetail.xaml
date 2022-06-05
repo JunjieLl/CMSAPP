@@ -3,7 +3,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CMSAPP.Viwes.RoomDetail"
-    xmlns:local="clr-namespace:CMSAPP.Viwes">
+    xmlns:local="clr-namespace:CMSAPP.Viwes"
+    Title="房间详情">
     <StackLayout VerticalOptions="Start" x:Name="RoomDetailView" Spacing="15">
         <Image Source="{Binding image}" HeightRequest="200" WidthRequest="300" Aspect="AspectFill"/>
         <Grid>
@@ -40,6 +41,10 @@
                                ItemSpacing="15" />
 
             </CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <Label Text="会议室空闲" FontSize="20"></Label>
+
+            </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout Spacing="10" Orientation="Vertical" BackgroundColor="#E8F2FF">

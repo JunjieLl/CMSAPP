@@ -13,8 +13,8 @@ namespace CMSAPP
     {
         //some user info
         public static readonly string baseUrl = "https://tjsegof.club/api/";
-        public static readonly string userId = "1953474";
-        public static readonly string userName = "李俊杰";
+        public static string userId;
+        public static string userName;
 
         //httpclient
         public static readonly HttpClient httpClient = new HttpClient();
@@ -24,23 +24,23 @@ namespace CMSAPP
             WriteIndented = true
         };
 
-        public App ()
+        public App()
         {
             InitializeComponent();
 
             MainPage = new AppShell();
         }
 
-        protected override void OnStart ()
+        protected override void OnStart()
         {
 
         }
 
-        protected override void OnSleep ()
+        protected override void OnSleep()
         {
         }
 
-        protected override void OnResume ()
+        protected override void OnResume()
         {
         }
     }

@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CMSAPP.Viwes.MyActivityPage"
     xmlns:local="clr-namespace:CMSAPP.Viwes"
-    >
+    Title="我的活动">
 
     <StackLayout>
         <Picker x:Name="picker" SelectedIndexChanged="pickerSelect">
@@ -12,17 +12,23 @@
 
         </Picker>
 
-        
+
         <CollectionView x:Name="collectionView">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"
                                ItemSpacing="15" />
             </CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <Label Text="暂时没有活动" FontSize="20"></Label>
+
+            </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
+
+
                 <DataTemplate>
 
-  
+
                     <Grid BackgroundColor="#F5F5F5" Padding="10">
                         <Grid.ColumnDefinitions >
                             <ColumnDefinition Width="200"></ColumnDefinition>
@@ -80,7 +86,7 @@
                                 Feedback="{Binding content}"
                                 ></local:MyButton>
                     </Grid>
-                        
+
 
 
                 </DataTemplate>

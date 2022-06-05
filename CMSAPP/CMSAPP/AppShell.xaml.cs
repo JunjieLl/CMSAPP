@@ -5,10 +5,10 @@ using CMSAPP.Viwes;
 using Xamarin.Forms;
 
 namespace CMSAPP
-{	
+{
 	public partial class AppShell : Shell
-	{	
-		public AppShell ()
+	{
+		public AppShell()
 		{
 			InitializeComponent();
 			Routing.RegisterRoute("RoomDetail", typeof(RoomDetail));
@@ -16,6 +16,9 @@ namespace CMSAPP
 			Routing.RegisterRoute("Modify", typeof(ActivityModifyPage));
 			Routing.RegisterRoute("ViewActivityInfo", typeof(ActivityViewPage));
 			Routing.RegisterRoute("ViewActivityInfoWithFeedback", typeof(ActivityViewWithFeedbackPage));
+			Routing.RegisterRoute("login", typeof(LoginPage));
+			Routing.RegisterRoute("main", typeof(MainPage));
+			Routing.RegisterRoute("activity", typeof(MyActivityPage));
 		}
 	}
 }

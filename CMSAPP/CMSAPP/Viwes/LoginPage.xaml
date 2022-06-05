@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CMSAPP.Viwes.LoginPage"
+    Title="登录">
+    <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="25">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Label Text="登录" FontSize="25"></Label>
+
+        </StackLayout>
+        <StackLayout Spacing="5">
+            <Label Text="学号" FontSize="18"></Label>
+            <Entry Placeholder="请输入学号" MaxLength="20" x:Name="idLabel"
+                   ClearButtonVisibility="WhileEditing" FontSize="23"></Entry>
+        </StackLayout>
+
+        <StackLayout Spacing="5">
+            <Label Text="密码" FontSize="18"></Label>
+            <Entry IsPassword="True" Placeholder="请输入密码" x:Name="passLabel"
+                   MaxLength="20" ClearButtonVisibility="WhileEditing" FontSize="23"></Entry>
+
+        </StackLayout>
+
+        <Button Text="登录" Clicked="Button_Clicked" BackgroundColor="#87CEEB" FontSize="25"></Button>
+    </StackLayout>
+</ContentPage>
+

@@ -54,8 +54,14 @@ namespace CMSAPP.Viwes
 
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
+            if (App.userId == null)
+            {
+                await Shell.Current.GoToAsync("login");
+                return;
+            }
+
             picker.Items.Clear();
             foreach (var s in showTypes)
             {
