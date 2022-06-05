@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CMSAPP.Viwes.ActivityViewPage">
+     <ScrollView>
+
+        <StackLayout Orientation="Vertical" VerticalOptions="Start" Spacing="15">
+            <StackLayout Spacing="5">
+                <Label Text="活动名称" FontSize="15"></Label>
+                <Entry IsEnabled="False" Placeholder="请输入活动名称" x:Name="VActNam" MaxLength="20" ClearButtonVisibility="WhileEditing" FontSize="20"></Entry>
+            </StackLayout>
+
+            <StackLayout Spacing="5">
+                <Label Text="场地选择" FontSize="15"></Label>
+                <Picker IsEnabled="False" x:Name="spacePicker" FontSize="20" ></Picker>
+            </StackLayout>
+
+            <StackLayout Spacing="5">
+                <Label Text="日期选择" FontSize="15"></Label>
+                <DatePicker IsEnabled="False" x:Name="datePicker" Format="yyyy-MM-dd" FontSize="20" ></DatePicker>
+            </StackLayout>
+
+            <StackLayout Spacing="5">
+                <Label Text="开始时间" FontSize="15"></Label>
+                <TimePicker IsEnabled="False" FontSize="20" x:Name="VStTime" ></TimePicker>
+            </StackLayout>
+
+            <StackLayout Spacing="5">
+                <Label Text="结束时间" FontSize="15"></Label>
+                <TimePicker IsEnabled="False" FontSize="20"  x:Name="VEndTime" ></TimePicker>
+            </StackLayout>
+
+            <StackLayout Spacing="5">
+                <Label Text="活动描述" FontSize="15"></Label>
+                <Editor IsEnabled="False" FontSize="20" x:Name="VDesc" Placeholder="请输入活动描述" MaxLength="200" AutoSize="TextChanges" ></Editor>
+            </StackLayout>
+
+            <StackLayout Spacing="5">
+                <Label Text="负责人" FontSize="15"></Label>
+                <Entry IsEnabled="False" FontSize="20"  x:Name="chargerEntry" IsReadOnly="True"></Entry>
+            </StackLayout>
+
+            <StackLayout Spacing="5">
+                <Label Text="是否涉及意识形态" FontSize="15"></Label>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="25">
+                    <RadioButton IsEnabled="False" Content="是" x:Name="VIsPoli" ></RadioButton>
+                    <RadioButton IsEnabled="False" Content="否" x:Name="VIsNotPoli" ></RadioButton>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Spacing="5">
+                <Label Text="修改原因或取消原因" FontSize="15"></Label>
+                <Editor IsEnabled="False" FontSize="20" x:Name="VReason" Placeholder="无修改" MaxLength="200" AutoSize="TextChanges"></Editor>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
+

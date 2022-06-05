@@ -75,6 +75,8 @@
                                 Passreason="{Binding reason}"
                                 PassroomId="{Binding roomId}"
                                 Clicked="modifyRecord"
+                                RoomName="{Binding roomName}"
+                                ActivityStatus="{Binding activityStatus}"
                                 ></local:MyButton>
                     </Grid>
                         

@@ -13,7 +13,7 @@ namespace CMSAPP.Models
         public string activityStatus { get; set; } = "已取消";
         public string building { get; set; } = "济事楼";
         public string commonUserId { get; set; } = "1953474";
-        public string content { get; set; } = "default";
+        public string content { get; set; } = "default";//管理员的反馈
         public int duration { get; set; } = 60;
         public string evaluateTime { get; set; } = "default";
         public string floor { get; set; } = "4";

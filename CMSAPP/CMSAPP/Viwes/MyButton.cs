@@ -11,6 +11,46 @@ namespace CMSAPP.Viwes
 
         }
 
+        public string ActivityStatus
+        {
+
+            get
+            {
+                return (string)GetValue(ActivityStatusProperty);
+            }
+            set
+            {
+                SetValue(ActivityStatusProperty, value);
+            }
+        }
+
+        public static readonly BindableProperty ActivityStatusProperty = BindableProperty.Create(
+            propertyName: "ActivityStatus",
+            returnType: typeof(string),
+            declaringType: typeof(MyButton),
+            defaultValue: "default"
+            );
+
+        public string RoomName
+        {
+            get
+            {
+                return (string)GetValue(RoomNameProperty);
+            }
+            set
+            {
+                SetValue(RoomNameProperty, value);
+            }
+
+        }
+
+        public static readonly BindableProperty RoomNameProperty = BindableProperty.Create(
+            propertyName: "RoomName",
+            returnType: typeof(string),
+            declaringType: typeof(MyButton),
+            defaultValue: "default"
+            );
+
         public string PassactivityId
         {
             get
