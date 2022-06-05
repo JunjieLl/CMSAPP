@@ -69,7 +69,7 @@ namespace CMSAPP.Viwes
             set
             {
                 PassactivityStatus = value;
-                if (value.Equals("待反馈"))
+                if (value.Equals("待反馈")||value.Equals("已反馈"))
                 {
                     reasonOrcancelLabel.Text = "修改原因";
                 }
