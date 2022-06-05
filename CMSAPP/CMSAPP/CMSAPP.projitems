@@ -27,6 +27,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Viwes\ActivityModifyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -56,6 +60,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Viwes\MyActivityPage.xaml.cs">
       <DependentUpon>MyActivityPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MyActivityPageModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MyActivityPageModelForView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Viwes\ActivityModifyPage.xaml.cs">
+      <DependentUpon>ActivityModifyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Viwes\MyButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PutActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />

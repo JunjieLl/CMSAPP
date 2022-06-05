@@ -7,40 +7,199 @@ using CMSAPP.Models;
 using System.ComponentModel;
 using System.Text;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace CMSAPP.Viwes
 {
-    [QueryProperty(nameof(roomId), "roomId")]
-    public partial class ReservePage : ContentPage
+    [QueryProperty(nameof(PassActivityId), "PassactivityId")]
+    [QueryProperty(nameof(PassActivityName), "PassactivityName")]
+    [QueryProperty(nameof(PassStartTime), "PassstartTime")]
+    [QueryProperty(nameof(PassDuration), "Passduration")]
+    [QueryProperty(nameof(PassActivityDescription), "PassactivityDescription")]
+    [QueryProperty(nameof(PassUserName), "PassuserName")]
+    [QueryProperty(nameof(PassPoliticalReview), "PasspoliticalReview")]
+    [QueryProperty(nameof(PassPoliticallyRelevant), "PasspoliticallyRelevant")]
+    [QueryProperty(nameof(PassReason), "Passreason")]
+    [QueryProperty(nameof(PassRoomId), "PassroomId")]
+    public partial class ActivityModifyPage : ContentPage
     {
+        //pass data begin
+        public string PassactivityId = "1000000008";
+        public string PassactivityName = "12";
+        public string PassstartTime = "2023-05-30 08:00:00";
+        public int Passduration = 60;
+        public string PassactivityDescription = "2233";
+        public string PassuserName = "徐满心";
+        public string PasspoliticalReview = "default";
+        public int PasspoliticallyRelevant = 0;
+        public string Passreason = "冲突";
+        public string PassroomId = "0000000001";
+
+        public string PassRoomId
+        {
+            get
+            {
+                return PassroomId;
+            }
+            set
+            {
+                PassroomId = value;
+                load();
+            }
+        }
+        public string PassActivityId
+        {
+            get
+            {
+                return PassactivityId;
+            }
+            set
+            {
+                PassactivityId = value;
+            }
+        }
+        public string PassActivityName
+        {
+            get
+            {
+                return PassactivityName;
+            }
+            set
+            {
+                PassactivityName = value;
+                VActNam.Text = PassactivityName;
+                activityName = value;
+            }
+        }
+        public string PassStartTime
+        {
+            get
+            {
+                return PassstartTime;
+            }
+            set
+            {
+                PassstartTime = value;
+                datePicker.Date = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
+            }
+        }
+
+        public DateTime originStartTime { get; set; }
+        public DateTime originEndTime { get; set; }
+
+        public int PassDuration
+        {
+            get
+            {
+                return Passduration;
+            }
+            set
+            {
+                Passduration = value;
+                DateTime t = DateTime.ParseExact(PassstartTime, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
+                DateTime t0 = DateTime.ParseExact(t.ToString("yyyy-MM-dd"), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture);
+                VStTime.Time = t - t0;
+                VEndTime.Time = (t - t0) + TimeSpan.FromMinutes(Passduration);
+                //record origin schedule
+                originStartTime = t;
+                originEndTime = t + TimeSpan.FromMinutes(Passduration);
+            }
+        }
+        public string PassActivityDescription
+        {
+            get
+            {
+                return PassactivityDescription;
+            }
+            set
+            {
+                PassactivityDescription = value;
+                VDesc.Text = value;
+                desc = VDesc.Text;
+            }
+        }
+        public string PassUserName
+        {
+            get
+            {
+                return PassuserName;
+            }
+            set
+            {
+                PassuserName = value;
+                chargerEntry.Text = value;
+            }
+        }
+        public string PassPoliticalReview
+        {
+            get
+            {
+                return PasspoliticalReview;
+            }
+            set
+            {
+                PasspoliticalReview = value;
+            }
+        }
+        public int PassPoliticallyRelevant
+        {
+            get
+            {
+                return PasspoliticallyRelevant;
+            }
+            set
+            {
+                PasspoliticallyRelevant = value;
+                if (value == 1)
+                {
+                    VIsPoli.IsChecked = true;
+                    VIsNotPoli.IsChecked = false;
+                }
+                else
+                {
+                    VIsPoli.IsChecked = false;
+                    VIsNotPoli.IsChecked = true;
+                }
+            }
+        }
+        public string PassReason
+        {
+            get
+            {
+                return Passreason;
+            }
+            set
+            {
+                Passreason = value;
+                VReason.Text = value;
+            }
+        }
+        //pass end
+        public void reasonInput(object sender, EventArgs args)
+        {
+            Editor editor = sender as Editor;
+            Passreason = editor.Text;
+        }
+
+        //form
+        public string modifyReason { get; set; }
+
+        public ActivityModifyPage()
+        {
+            InitializeComponent();
+
+            //render
+        }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            getActivities();
-        }
-
-        public string RoomId;
-        public string roomId
-        {
-            get
-            {
-                return RoomId;
-            }
-            set
-            {
-                RoomId = value;
-                load();
-            }
         }
 
         public async void load()
         {
-            chargerEntry.Text = App.userName;
-
-            dateChoose = DateTime.Now;
-            datePicker.Date = dateChoose;
+            //dateChoose = DateTime.Now;
+            //datePicker.Date = dateChoose;
 
             Uri uri = new Uri($"{App.baseUrl}Room/AllGround");
             try
@@ -51,12 +210,12 @@ namespace CMSAPP.Viwes
                     string content = await response.Content.ReadAsStringAsync();
                     var grounds = JsonSerializer.Deserialize<List<Ground>>(content, App.serializerOptions);
                     grounds.Sort((ground1, ground2) => ground1.roomName.CompareTo(ground2.roomName));
-                    int selectedIndex = -1,i=0;
+                    int selectedIndex = -1, i = 0;
                     grounds.ForEach(ground =>
                     {
                         roomNameId.Add(ground.roomName, ground.roomId);
                         spacePicker.Items.Add(ground.roomName);
-                        if (ground.roomId.Equals(roomId))
+                        if (ground.roomId.Equals(PassroomId))
                         {
                             selectedIndex = i;
                         }
@@ -71,10 +230,6 @@ namespace CMSAPP.Viwes
             }
         }
 
-        public ReservePage()
-        {
-            InitializeComponent();
-        }
         //form
         private string activityName { get; set; }
 
@@ -87,7 +242,7 @@ namespace CMSAPP.Viwes
         //form 
         public string chooseRoomId { get; set; }
 
-        
+
 
         public void sapcePickerChoose(object sender, EventArgs args)
         {
@@ -248,6 +403,12 @@ namespace CMSAPP.Viwes
                 return;
             }
 
+            if (Passreason == null || Passreason.Equals(""))
+            {
+                await DisplayAlert("警告", "请填写修改理由", "确认");
+                return;
+            }
+
             //check conflict between reserve time
             foreach (var activity in activities)
             {
@@ -256,6 +417,12 @@ namespace CMSAPP.Viwes
 
                 DateTime activityStartTime = DateTime.ParseExact(activity.start, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.CurrentCulture);
                 DateTime activityEndTime = DateTime.ParseExact(activity.end, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.CurrentCulture);
+
+                if (originStartTime == activityStartTime && originEndTime == activityEndTime)
+                {
+                    //ok
+                    continue;
+                }
 
                 if (startTime > activityEndTime || activityStartTime > endTime)
                 {
@@ -268,38 +435,38 @@ namespace CMSAPP.Viwes
                 }
             }
 
+            PutActivity putActivity = new PutActivity();
+            putActivity.activityId = PassactivityId;
+            putActivity.activityName = activityName;
+            putActivity.activityStatus = "待举办";
+            putActivity.startTime = (DateTime.ParseExact(dateChoose.ToString("yyyy-MM-dd"), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture) + startTimeSpan).ToString("yyyy-MM-dd HH:mm:ss");
+            putActivity.duration = (int)((endTimeSpan - startTimeSpan).TotalMinutes);
+            putActivity.activityDescription = desc;
+            putActivity.politicallyRelevant = politicalRelevannt;
+            putActivity.roomId = chooseRoomId;
+            putActivity.commonUserId = App.userId;
+            putActivity.reason = Passreason;
 
-            PostActivity postActivity = new PostActivity();
-            postActivity.activityName = activityName;
-            postActivity.activityDescription = desc;
-            postActivity.roomId = chooseRoomId;
-            postActivity.activityStatus = "待举办";
-            postActivity.commonUserId = App.userId;
-            postActivity.duration = (int)((endTimeSpan - startTimeSpan).TotalMinutes);
-            postActivity.politicallyRelevant = politicalRelevannt;
-            postActivity.startTime = (DateTime.ParseExact(dateChoose.ToString("yyyy-MM-dd"), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture) + +startTimeSpan).ToString("yyyy-MM-dd HH:mm:ss");
 
             Uri uri = new Uri($"{App.baseUrl}Activity");
             try
             {
-                string json = JsonSerializer.Serialize<PostActivity>(postActivity, App.serializerOptions);
+                string json = JsonSerializer.Serialize<PutActivity>(putActivity, App.serializerOptions);
                 StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await App.httpClient.PostAsync(uri, stringContent);
+                var response = await App.httpClient.PutAsync(uri, stringContent);
 
-                getActivities();
-
+                //getActivities();
                 if (response.IsSuccessStatusCode)
                 {
                     await DisplayAlert("提示", "预约成功", "确认");
+                    await Shell.Current.GoToAsync("..");
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
-
         }
-
     }
 }
 

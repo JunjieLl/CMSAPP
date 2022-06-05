@@ -13,6 +13,7 @@ namespace CMSAPP
 			InitializeComponent();
 			Routing.RegisterRoute("RoomDetail", typeof(RoomDetail));
 			Routing.RegisterRoute("Reserve", typeof(ReservePage));
+			Routing.RegisterRoute("Modify", typeof(ActivityModifyPage));
 		}
 	}
 }
