@@ -52,10 +52,10 @@ namespace CMSAPP.Viwes
                 Passfeedback = value;
                 VFeedback.Text = value;
                 if (PassactivityStatus.Equals("已反馈")) {
-                    feedBackLabel.Text = "驳回原因";
+                    feedBackLabel.Text = "反馈";
                 }
                 else if (PassactivityStatus.Equals("被驳回")){
-                    feedBackLabel.Text = "反馈";
+                    feedBackLabel.Text = "驳回原因";
                 }
             }
         }
